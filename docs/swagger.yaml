@@ -111,7 +111,7 @@ paths:
           description: Server Error
           schema:
             $ref: '#/definitions/ServerError'       
- '/quizzes/{property} ':
+ '/quizzes//publish/{property} ':
    get:
       tags:
         - Quizzes
