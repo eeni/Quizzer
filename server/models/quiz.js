@@ -11,7 +11,7 @@ module.exports = (mongoose) => {
       difficulty: {type: Number},
       status: {type: String},
       userId: {type: ObjectId},
-      slug:{type: String, unique: true},
+      slug:{type: String},
       cover: {type: String}
     })
 
