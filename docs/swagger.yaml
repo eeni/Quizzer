@@ -12,14 +12,15 @@ schemes:
   - https
 produces:
   - application/json
+
 paths:
  '/quizzes':
-   post:
+   patch:
       tags:
         - Quizzes
-      summary: Create a quiz
+      summary: Update a quiz
       description: |
-        Create a new quiz without questions
+        Update an existing quizz
       parameters:
         - name: quiz_name
           in: formData
@@ -53,7 +54,7 @@ paths:
         '200':
           description: New quiz created
           schema:
-            $ref: '#/definitions/quiz_create'
+            $ref: '#/definitions/quiz_update'
         '500':
           description: Server Error
           schema:
@@ -129,7 +130,7 @@ paths:
         '200':
           description: New quiz created
           schema:
-            $ref: '#/definitions/quiz_create'
+            $ref: '#/definitions/quiz_update'
         '404':
           description: Quiz not found
         '422':
@@ -300,6 +301,14 @@ definitions:
     example: There has been a problem with the server.
   quiz_create:
     type: object
+    properties:
+      quiz:
+        type: object
+        properties:
+          _id:
+            type: string  
+  quiz_update:
+    type: object
     properties: 
       _id:
         type: string
@@ -366,7 +375,8 @@ definitions:
     items:
       type: object
       properties:
-        _id: type: string
+        _id: 
+          type: string
         topics:
           type: array
           items:

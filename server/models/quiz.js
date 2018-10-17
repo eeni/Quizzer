@@ -5,13 +5,14 @@ module.exports = (mongoose) => {
     const ObjectId = mongoose.Schema.Types.ObjectId
 
     const quizSchema = mongoose.Schema({
-      quizName: {type: String, required: true},
+      quizName: {type: String},
       topics: {type: [String]},
       subtopics: {type: [String]},
       difficulty: {type: Number},
       status: {type: String},
       userId: {type: ObjectId},
-      slug:{type: String, required: true, unique: true}
+      slug:{type: String, unique: true},
+      cover: {type: String}
     })
 
     quizModel = mongoose.model('quizzes', quizSchema)

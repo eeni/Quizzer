@@ -19,7 +19,7 @@ class QuestionController {
 
       if (!quiz) 
         return res.status(httpStatus.unprocessable_entity).send({error: 'This quiz does not exists'})
-
+        
       if(quiz.userId != req.user.id) 
         return res.status(httpStatus.forbidden).send({error: 'You cant add questions for this quiz'})
         
