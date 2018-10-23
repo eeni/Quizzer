@@ -10,7 +10,8 @@ module.exports = (mongoose) => {
       email: {type: String, required: true, unique: true},
       username: {type: String, required: true},
       password: {type: String, required: true},
-      slug: {type: String, required:true, unique: true}
+      slug: {type: String, required:true, unique: true},
+      createdAt: {type: Date}
     })
 
     userModel = mongoose.model('users', userSchema)

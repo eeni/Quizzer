@@ -12,7 +12,8 @@ module.exports = (mongoose) => {
       status: {type: String},
       userId: {type: ObjectId},
       slug:{type: String},
-      cover: {type: String}
+      cover: {type: String},
+      createdAt: {type: Date}
     })
 
     quizModel = mongoose.model('quizzes', quizSchema)

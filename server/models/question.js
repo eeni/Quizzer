@@ -8,7 +8,8 @@ module.exports = (mongoose) => {
       question: {type: String, required: true},
       answers: {type: [String], required: true},
       correctAnswer: {type: String, required: true},
-      quizId: {type: ObjectId, required: true}
+      quizId: {type: ObjectId, required: true},
+      createdAt: {type: Date}
     })
 
     questionModel = mongoose.model('questions', questionSchema)

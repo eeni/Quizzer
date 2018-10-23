@@ -54,7 +54,8 @@ class QuizController {
         quiz.subtopics = subtopics,
         quiz.difficulty = difficulty,
         quiz.slug = slug,
-        quiz.status = status
+        quiz.status = status,
+        quiz.createdAt = new Date()
         //quiz.userId = req.user.id
       
 
@@ -107,7 +108,9 @@ class QuizController {
 
       questions = await Question.find({
         'quizId': quiz._id
-      })  
+      })
+      .sort('-date')
+      .exec()
 
       quiz = quiz.toObject()
 

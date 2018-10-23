@@ -16,7 +16,8 @@ module.exports = (mongoose) => {
       choices: {type: [choicesSchema], required: true},
       points: {type: String},
       wrong: {type: String},
-      right: {type: String}
+      right: {type: String},
+      createdAt: {type: Date}
     });
 
     model = mongoose.model('answers', schema);
