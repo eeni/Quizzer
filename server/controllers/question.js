@@ -2,17 +2,22 @@ const mongoose = require('mongoose')
 const Question = require('../models/question')(mongoose)
 const Quiz = require('../models/quiz')(mongoose)
 const httpStatus = require('../enums/http-status')
+const QuizzController = require("./quiz")
 
 class QuestionController {
 
   async create (req,res) {
+    let quizzId = null
+    let active = false
 
     const questionCreate = async (data) => {
       if(Array.isArray(data)){
+        quizzId = data[0].quiz_id
         for (let i = 0; i < data.length; i++)
           await questionSave(data[i])
       }
       else {
+        quizzId = data.quiz_id
         await questionSave (data)
       }
     }
@@ -29,8 +34,10 @@ class QuestionController {
         _id: quiz_id,
       })
 
-      if (!quiz) 
+      if (!quiz) {
+        active = true
         return res.status(httpStatus.unprocessable_entity).send({error: 'This quiz does not exists'})
+      }
         
       // if(quiz.userId != req.user.id) 
       //   return res.status(httpStatus.forbidden).send({error: 'You cant add questions for this quiz'})
@@ -40,8 +47,10 @@ class QuestionController {
         quizId: quiz_id
       })
 
-      if (existingQuestion)
-        return res.status(httpStatus.unprocessable_entity).send({error: 'This question already exists in thie quiz'})
+      if (existingQuestion) {
+        active = true
+        return res.status(httpStatus.unprocessable_entity).send({error: 'This question already exists in this quiz'})
+      }
         
       let savedQuestion = new Question({
         question: question,
@@ -55,13 +64,17 @@ class QuestionController {
 
       } catch (error) {
         console.log(error.message)
+        active = true
         return res.status(httpStatus.internal_server_error).send({error: error.message})
       }
     }
   
     await questionCreate (req.body.questions)
 
-    return res.send({status: 'Questions added'})
+    req.params.property = quizzId
+
+    if(!active)
+    return await new QuizzController().show(req, res)
 
   }
 }

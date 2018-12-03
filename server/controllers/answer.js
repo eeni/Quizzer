@@ -20,11 +20,11 @@ class AnswersController{
       
       if(!quiz)
         return res.status(httpStatus.unprocessable_entity).send({error: 'Quiz with the provided name does not exists or is not active'})
-    
+      //TODO Eni Authentificate this
       const existingAnswer = await Answer.findOne({
         quizId: req.body.quiz_id,
         // userId: req.user.id
-      })  
+      }) 
 
       if(existingAnswer)
         return res.status(httpStatus.unprocessable_entity).send({error: 'You have already answer this quiz'})
