@@ -73,8 +73,12 @@ class QuestionController {
 
     req.params.property = quizzId
 
+    if(req.query.publish)
+      return await new QuizzController().publishQuiz(req, res)
+
     if(!active)
-    return await new QuizzController().show(req, res)
+      return await new QuizzController().show(req, res)
+
 
   }
 }
